@@ -1,0 +1,26 @@
+--Create clothing store database
+
+CREATE TABLE clothing (id INTEGER PRIMARY KEY, item TEXT, section TEXT, price INTEGER, popularity INTEGER);
+
+INSERT INTO clothing VALUES
+(1, "t-shirts", "women", 20.00, 15),
+(2, "dresses", "women", 59.99, 5),
+(3, "jeans", "men", 69.99, 2),
+(4, "jackets", "men", 49.99, 3),
+(5, "cardigans", "women", 59.99, 2)
+;
+--display database order by price.
+SELECT * FROM clothing
+ORDER BY price desc;
+
+
+--whats the avg price of items in women section?
+SELECT AVG(price) "avg women section price"
+FROM clothing
+WHERE section="women";
+
+--whats the most 2 popular items?
+SELECT items, price, popularity
+FROM clothing
+ORDER BY popularity desc
+limit 2;
