@@ -28,15 +28,13 @@ ORDER BY price ASC
 LIMIT 1
 
 #5. What is the total revenue for each product sold in January?
-SELECT 
-product, 
-sum(quantity)*price as revenue
+SELECT product, SUM(quantity)*price as revenue
 FROM BIT_DB.JanSales
 GROUP BY product
 
 #6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
 SELECT 
-sum(Quantity), 
+sum(quantity), 
 product, 
 sum(quantity)*price as revenue
 FROM BIT_DB.FebSales 
@@ -53,3 +51,9 @@ ON Feb.orderid=c.order_id
 WHERE Feb.Quantity > 2
 AND length(orderid) = 6 
 AND orderid <> 'Order ID'
+
+#8. List all the products sold in Los Angeles in February, and include how many of each were sold. 
+SELECT product, SUM(quantity)
+FROM BIT_DB.FebSales 
+WHERE location like '%Los Angeles%'
+GROUP BY product
