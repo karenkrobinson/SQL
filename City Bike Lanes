@@ -1,5 +1,5 @@
-# For this project, I downloaded City Bike Lanes from Charlotte Break In To Tech Program.
-# Then I created a table to insert City Bike Lane data into.
+# For this project, I downloaded City Bike Lanes data from Charlotte Chaze's Break Into Tech Program.
+# Then I created a table to insert City Bike Lanes data into.
 # Finally, I performed analytics on the data using SQL.
 
 CREATE TABLE BIT_DB.CityBikeLanes (
@@ -83,3 +83,12 @@ WITH cte_safety_avg AS (
 SELECT street, rating, 'safe lane' as 'label'
 FROM cte_safety_avg
 WHERE rating>=4
+
+#List of all the bike lanes, both safety ratings for each lane, the average safety rating for each lane, and a label with the recommendation as "Remove", "Leave As-Is", or "Improvements Needed"
+SELECT street, safetyrating,
+AVG(safetyrating) OVER (PARTITION BY street) as "Average_safety_rating",
+CASE WHEN AVG(safetyrating) OVER (PARTITION BY safetyrating) >=4 THEN "Leave As-Is"
+    WHEN AVG(safetyrating) OVER (PARTITION BY safetyrating) <2.5 THEN "Remove"
+    ELSE "Improvements Needed"
+    END AS "Recommendation"
+FROM CityBikeLanes
